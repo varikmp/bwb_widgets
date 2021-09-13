@@ -17,7 +17,7 @@ class OWtoil_wdl(OWBwBWidget):
     priority = 1
     icon = getIconName(__file__,"wdl.png")
     want_main_area = False
-    docker_image_name = "varikmp/toil"
+    docker_image_name = "varikmp/toil_slurm"
     docker_image_tag = "latest"
     inputs = [("inputFile",str,"handleInputsinputFile"),("Trigger",str,"handleInputsTrigger")]
     outputs = [("OutputDir",str)]
@@ -30,6 +30,7 @@ class OWtoil_wdl(OWBwBWidget):
     optionsChecked=pset({})
     WDL_FILE=pset(None)
     JSON_FILE=pset(None)
+    TOIL_SLURM_ARGS=pset(None)
     def __init__(self):
         super().__init__(self.docker_image_name, self.docker_image_tag)
         with open(getJsonName(__file__,"toil_wdl")) as f:
