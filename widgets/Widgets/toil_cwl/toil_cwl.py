@@ -11,13 +11,13 @@ from DockerClient import DockerClient
 from BwBase import OWBwBWidget, ConnectionDict, BwbGuiElements, getIconName, getJsonName
 from PyQt5 import QtWidgets, QtGui
 
-class OWToil_WDL(OWBwBWidget):
-    name = "Toil_WDL"
-    description = "Toil WDL"
+class OWtoil_cwl(OWBwBWidget):
+    name = "toil_cwl"
+    description = "Toil CWL"
     priority = 1
-    icon = getIconName(__file__,"wdl.png")
+    icon = getIconName(__file__,"cwl.png")
     want_main_area = False
-    docker_image_name = "varikmp/toil"
+    docker_image_name = "varikmp/toil_slurm"
     docker_image_tag = "latest"
     inputs = [("inputFile",str,"handleInputsinputFile"),("Trigger",str,"handleInputsTrigger")]
     outputs = [("OutputDir",str)]
@@ -28,11 +28,12 @@ class OWToil_WDL(OWBwBWidget):
     triggerReady=pset({})
     inputConnectionsStore=pset({})
     optionsChecked=pset({})
-    WDL_FILE=pset(None)
-    JSON_FILE=pset(None)
+    CWL_FILE=pset(None)
+    YAML_FILE=pset(None)
+    TOIL_SLURM_ARGS=pset(None)
     def __init__(self):
         super().__init__(self.docker_image_name, self.docker_image_tag)
-        with open(getJsonName(__file__,"Toil_WDL")) as f:
+        with open(getJsonName(__file__,"toil_cwl")) as f:
             self.data=jsonpickle.decode(f.read())
             f.close()
         self.initVolumes()

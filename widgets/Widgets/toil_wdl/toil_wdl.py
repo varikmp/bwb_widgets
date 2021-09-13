@@ -11,13 +11,13 @@ from DockerClient import DockerClient
 from BwBase import OWBwBWidget, ConnectionDict, BwbGuiElements, getIconName, getJsonName
 from PyQt5 import QtWidgets, QtGui
 
-class OWCromwell(OWBwBWidget):
-    name = "Cromwell"
-    description = "cromwell 64"
+class OWtoil_wdl(OWBwBWidget):
+    name = "toil_wdl"
+    description = "Toil WDL"
     priority = 1
-    icon = getIconName(__file__,"cromwell.png")
+    icon = getIconName(__file__,"wdl.png")
     want_main_area = False
-    docker_image_name = "varikmp/cromwell"
+    docker_image_name = "varikmp/toil"
     docker_image_tag = "latest"
     inputs = [("inputFile",str,"handleInputsinputFile"),("Trigger",str,"handleInputsTrigger")]
     outputs = [("OutputDir",str)]
@@ -29,10 +29,10 @@ class OWCromwell(OWBwBWidget):
     inputConnectionsStore=pset({})
     optionsChecked=pset({})
     WDL_FILE=pset(None)
-    OBJECT_FILE=pset(None)
+    JSON_FILE=pset(None)
     def __init__(self):
         super().__init__(self.docker_image_name, self.docker_image_tag)
-        with open(getJsonName(__file__,"Cromwell")) as f:
+        with open(getJsonName(__file__,"toil_wdl")) as f:
             self.data=jsonpickle.decode(f.read())
             f.close()
         self.initVolumes()
