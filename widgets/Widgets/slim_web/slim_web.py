@@ -11,13 +11,13 @@ from DockerClient import DockerClient
 from BwBase import OWBwBWidget, ConnectionDict, BwbGuiElements, getIconName, getJsonName
 from PyQt5 import QtWidgets, QtGui
 
-class OWnbia_dr(OWBwBWidget):
-    name = "nbia_dr"
-    description = "NBIA Data Retriever"
+class OWslim_web(OWBwBWidget):
+    name = "slim_web"
+    description = "nci idc slim viewer dicom arc"
     priority = 1
-    icon = getIconName(__file__,"nbia.png")
+    icon = getIconName(__file__,"120px-NIH_Master_Logo_Vertical_2Color.png")
     want_main_area = False
-    docker_image_name = "varikmp/nbia"
+    docker_image_name = "varikmp/slim_web"
     docker_image_tag = "latest"
     inputs = [("inputFile",str,"handleInputsinputFile"),("Trigger",str,"handleInputsTrigger")]
     outputs = [("OutputDir",str)]
@@ -28,10 +28,9 @@ class OWnbia_dr(OWBwBWidget):
     triggerReady=pset({})
     inputConnectionsStore=pset({})
     optionsChecked=pset({})
-    MANIFEST_FILE=pset(None)
     def __init__(self):
         super().__init__(self.docker_image_name, self.docker_image_tag)
-        with open(getJsonName(__file__,"nbia_dr")) as f:
+        with open(getJsonName(__file__,"slim_web")) as f:
             self.data=jsonpickle.decode(f.read())
             f.close()
         self.initVolumes()
