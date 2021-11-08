@@ -11,9 +11,9 @@ from DockerClient import DockerClient
 from BwBase import OWBwBWidget, ConnectionDict, BwbGuiElements, getIconName, getJsonName
 from PyQt5 import QtWidgets, QtGui
 
-class OWslim_web(OWBwBWidget):
-    name = "slim_web"
-    description = "nci idc slim viewer dicom arc"
+class OWslim_web_gcp(OWBwBWidget):
+    name = "slim_web_gcp"
+    description = "nci idc slim viewer dicom arc gcp"
     priority = 1
     icon = getIconName(__file__,"120px-NIH_Master_Logo_Vertical_2Color.png")
     want_main_area = False
@@ -28,9 +28,14 @@ class OWslim_web(OWBwBWidget):
     triggerReady=pset({})
     inputConnectionsStore=pset({})
     optionsChecked=pset({})
+    PROJECT_ID=pset(None)
+    LOCATION=pset(None)
+    DATASET=pset(None)
+    DICOM_STORE=pset(None)
+    HEALTHCARE_API_URL=pset(None)
     def __init__(self):
         super().__init__(self.docker_image_name, self.docker_image_tag)
-        with open(getJsonName(__file__,"slim_web")) as f:
+        with open(getJsonName(__file__,"slim_web_gcp")) as f:
             self.data=jsonpickle.decode(f.read())
             f.close()
         self.initVolumes()
